@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainContent" prefHeight="853.0" prefWidth="1261.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MimisSpikeBallController">
+
+   <children>
+      <ListView fx:id="listeAllJoueurs" layoutX="57.0" layoutY="72.0" prefHeight="558.0" prefWidth="300.0" style="-fx-font-size: 20px;" />
+      <TextField fx:id="nomNewPlayer" layoutX="66.0" layoutY="686.0" prefHeight="76.0" prefWidth="282.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+
+      <Button fx:id="addPlayerOK" layoutX="291.0" layoutY="686.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="57.0" text="+">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <ListView fx:id="listeAllJoueursQuiJouent" layoutX="409.0" layoutY="72.0" prefHeight="558.0" prefWidth="300.0" style="-fx-font-size: 20px;" />
+      <Text layoutX="57.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste de tous les joueurs">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="409.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des joueurs qui jouent">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Line endX="-7.0" endY="637.0" layoutX="392.0" layoutY="39.0" startX="-7.0" startY="-10.0" />
+      <Line endX="-7.0" endY="637.0" layoutX="740.0" layoutY="39.0" startX="-7.0" startY="-10.0" />
+      <Spinner fx:id="nbTerrain" layoutX="844.0" layoutY="74.0" prefHeight="76.0" prefWidth="308.0" />
+      <Text layoutX="844.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de terrain" wrappingWidth="198.13671875">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="typeTournois" layoutX="844.0" layoutY="220.0" prefHeight="76.0" prefWidth="308.0" style="-fx-font-size: 20px;" />
+      <Text layoutX="844.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type de Tournois" wrappingWidth="198.13671875">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="btnCreerEquipe" layoutX="844.0" layoutY="578.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="308.0" text="Creer les équipes">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="genererTournoi" layoutX="844.0" layoutY="718.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="308.0" text="Générer le tournois">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <ListView fx:id="listeEquipe" layoutX="844.0" layoutY="345.0" prefHeight="233.0" prefWidth="308.0" style="-fx-font-size: 20px;" />
+      <Text fx:id="benchTextArea" layoutX="848.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
