@@ -38,7 +38,7 @@
       </Text>
       <Line endX="-7.0" endY="637.0" layoutX="392.0" layoutY="39.0" startX="-7.0" startY="-10.0" />
       <Line endX="-7.0" endY="637.0" layoutX="740.0" layoutY="39.0" startX="-7.0" startY="-10.0" />
-      <Spinner fx:id="nbTerrain" layoutX="844.0" layoutY="74.0" prefHeight="76.0" prefWidth="308.0" />
+      <Spinner fx:id="nbTerrain" layoutX="844.0" layoutY="74.0" prefHeight="76.0" prefWidth="308.0" style="-fx-font-size: 20px; -fx-alignment: center;"/>
       <Text layoutX="844.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de terrain" wrappingWidth="198.13671875">
          <font>
             <Font size="20.0" />

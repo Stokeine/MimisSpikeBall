@@ -50,6 +50,7 @@ public class MimisSpikeBallController {
     private ObservableList<Joueur> joueurs = FXCollections.observableArrayList();
     private ObservableList<Joueur> joueursQuiJouent = FXCollections.observableArrayList();
     private ObservableList<Equipe> equipes = FXCollections.observableArrayList();
+    private ObservableList<Equipe> equipesForme = FXCollections.observableArrayList();
 
 
     private final JoueurDAO joueurDAO = new JoueurDAO();
@@ -59,7 +60,7 @@ public class MimisSpikeBallController {
         listeAllJoueurs.setItems(joueurs);
         listeAllJoueursQuiJouent.setItems(joueursQuiJouent);
         listeEquipe.setItems(equipes);
-        typeTournois.getItems().addAll("League", "Bracket");
+        typeTournois.getItems().addAll("Bracket","Match Simple", "League");
         nbTerrain.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1));
         nbTerrain.setEditable(true);
         updatePlayerList();
@@ -116,7 +117,13 @@ public class MimisSpikeBallController {
         addPlayerOK.setOnAction(event -> ajouterJoueur());
 
         btnCreerEquipe.setOnAction(event -> {
-            if (joueursQuiJouent.size() >= 4) {
+            int nbJoueurDansEquipesForme = 0;
+            for (Equipe e : equipesForme){
+                for (Joueur j : e.getJoueurs()){
+                    nbJoueurDansEquipesForme++;
+                }
+            }
+            if (joueursQuiJouent.size() + nbJoueurDansEquipesForme>= 4) {
                 CreerEquipe();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -134,12 +141,27 @@ public class MimisSpikeBallController {
             fxmlFile = "/view/League.fxml";
         } else if ("Bracket".equals(type)) {
             fxmlFile = "/view/Bracket.fxml";
+        } else if ("Match Simple".equals(type)) {
+            fxmlFile = "/view/MatchSimple.fxml";
         } else {
             return;
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         Parent view = loader.load();
+
+        Object controller = loader.getController();
+
+        if (controller instanceof BracketController) {
+            ((BracketController) controller).setEquipes(equipes);
+            ((BracketController) controller).setJoueurs(new ArrayList<>(joueursQuiJouent));
+        } else if (controller instanceof MatchSimpleController) {
+            ((MatchSimpleController) controller).setEquipes(equipes.get(0), equipes.get(1));
+           // ((MatchSimpleController) controller).setJoueurs(joueursQuiJouent);
+        } else if (controller instanceof LeagueController) {
+            ((LeagueController) controller).setEquipes(equipes);
+            ((LeagueController) controller).setJoueurs(new ArrayList<>(joueursQuiJouent));
+        }
 
         mainContent.getChildren().clear();
         mainContent.getChildren().add(view);
@@ -222,6 +244,7 @@ public class MimisSpikeBallController {
 
     private void creerEquipes(List<Joueur> joueurs, int nbEquipes) {
         equipes.clear();
+        equipes.addAll(equipesForme);
         Collections.shuffle(joueurs);
 
         for(Joueur joueur : joueurs){
@@ -277,6 +300,34 @@ public class MimisSpikeBallController {
                     });
                     contextMenu.getItems().add(item);
                 }
+
+                Menu faireEquipeAvecMenu = new Menu("Faire équipe avec");
+
+                contextMenu.setOnShowing(e -> {
+                    faireEquipeAvecMenu.getItems().clear();
+                    Joueur joueurClicDroit = getItem();
+
+                    for (Joueur autre : joueursQuiJouent) {
+                        if (!autre.equals(joueurClicDroit)) {
+                            MenuItem avecAutre = new MenuItem(autre.getNom());
+                            avecAutre.setOnAction(ev -> {
+                                Equipe equipe = new Equipe(joueurClicDroit, autre);
+                                if (!equipes.contains(equipe)) {
+                                    equipesForme.add(equipe);
+                                    equipes.add(equipe);
+                                    System.out.println("Nouvelle équipe créée : " + equipe.getNom());
+
+                                    joueursQuiJouent.remove(joueurClicDroit);
+                                    joueursQuiJouent.remove(autre);
+                                }
+                            });
+                            faireEquipeAvecMenu.getItems().add(avecAutre);
+                        }
+                    }
+                });
+
+                contextMenu.getItems().add(new SeparatorMenuItem());
+                contextMenu.getItems().add(faireEquipeAvecMenu);
                 setContextMenu(contextMenu);
             }
 

@@ -1,5 +1,8 @@
 package org.example.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Equipe {
 
     private String nom;
@@ -10,6 +13,7 @@ public class Equipe {
     private int nbDefaite;
     private int nbPresqqueDefaite;
     private int nbPoint;
+    private List<Joueur> joueurs = new ArrayList<>();
 
     public Equipe() {
     }
@@ -23,6 +27,12 @@ public class Equipe {
         this.nbPresqqueDefaite = 0;
         this.nbPresqueVictoire = 0;
         this.nbPoint = 0;
+    }
+
+    public List<Joueur> getJoueurs(){
+        joueurs.add(joueur1);
+        joueurs.add(joueur2);
+        return joueurs;
     }
 
     public String getNom() {
